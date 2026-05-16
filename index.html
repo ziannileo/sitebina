@@ -13,7 +13,7 @@
     }
 
     html {
-      scroll-behavior: smooth;
+      overflow-y: auto;
     }
 
     body {
@@ -21,8 +21,8 @@
       background: linear-gradient(180deg, #fff0f5, #ffe4ec);
       color: #333;
       overflow-x: hidden;
+      overscroll-behavior-y: none;
     }
-
     section {
       min-height: 100vh;
       min-height: 100dvh;
@@ -212,10 +212,11 @@
     /* SCROLL INDICATOR */
 
     .scroll {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
+        position: relative;
+        margin: 40px auto 0;
+        left: unset;
+        bottom: unset;
+        transform: none;
         width: 55px;
         height: 55px;
         border-radius: 50%;
@@ -230,19 +231,27 @@
         animation: bounce 1.5s infinite;
         transition: 0.3s ease;
         user-select: none;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.8s ease;
+    }
+
+    .scroll.show {
+      opacity: 1;
+      pointer-events: all;
     }
 
     .scroll:hover {
-        transform: translateX(-50%) scale(1.08);
+        transform: scale(1.08);
     }
 
     @keyframes bounce {
         0%,100% {
-            transform: translate(-50%, 0);
+            transform: translateY(0);
         }
 
         50% {
-            transform: translate(-50%, 10px);
+            transform: translateY(10px);
         }
     }
 
@@ -298,7 +307,7 @@
           <img
             src="fotos/foto4.jpeg"
             alt=""
-            style="object-position: center 10%;"
+            style="object-position: center top;"
           >
 
           <div class="caption">Eu escolheria você sempre ❤️</div>
@@ -380,6 +389,8 @@
     const title1 = document.getElementById("title1");
     const text1 = document.getElementById("text1");
 
+    const scroll1 = document.querySelector('#page1 .scroll');
+
     const page1Title =
       "Eu Te Amo Bina ❤️";
 
@@ -389,7 +400,9 @@
 
       typeWriter(title1, page1Title, 140, () => {
         setTimeout(() => {
-          typeWriter(text1, page1Text, 55);
+          typeWriter(text1, page1Text, 55, () => {
+            scroll1.classList.add("show");
+          });
         }, 500);
       });
 
@@ -398,6 +411,9 @@
     } else {
       title1.innerHTML = page1Title;
       text1.innerHTML = page1Text;
+
+      scroll1.classList.add("show");
+
     }
 
     // PAGE 2
@@ -414,6 +430,8 @@
 
           const cards = document.querySelectorAll(".polaroid");
 
+          const scroll2 = document.querySelector('#page2 .scroll');
+
           if (!played) {
 
             typeWriter(
@@ -423,9 +441,19 @@
               () => {
 
                 cards.forEach((card, index) => {
+
                   setTimeout(() => {
+
                     card.classList.add("show");
+
+                    if (index === cards.length - 1) {
+                      setTimeout(() => {
+                        scroll2.classList.add("show");
+                      }, 500);
+                    }
+
                   }, index * 400);
+
                 });
 
               }
@@ -441,6 +469,8 @@
             cards.forEach(card => {
               card.classList.add("show");
             });
+
+            scroll2.classList.add("show");
 
           }
 
