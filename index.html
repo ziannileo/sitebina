@@ -12,7 +12,11 @@
       box-sizing: border-box;
     }
 
-    html {
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
       overflow-y: auto;
     }
 
@@ -21,15 +25,15 @@
       background: linear-gradient(180deg, #fff0f5, #ffe4ec);
       color: #333;
       overflow-x: hidden;
-      overscroll-behavior-y: none;
     }
+
     section {
       min-height: 100vh;
       min-height: 100dvh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
+      padding: 80px 20px;
       position: relative;
     }
 
@@ -382,6 +386,48 @@
       typing();
     }
 
+    // SCROLL LOCK
+
+    let scrollLocked = false;
+
+    function preventScroll(e) {
+
+      if (scrollLocked) {
+        e.preventDefault();
+      }
+
+    }
+
+    function lockScroll() {
+
+      scrollLocked = true;
+
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+
+      window.addEventListener("wheel", preventScroll, {
+        passive: false
+      });
+
+      window.addEventListener("touchmove", preventScroll, {
+        passive: false
+      });
+
+    }
+
+    function unlockScroll() {
+
+      scrollLocked = false;
+
+      document.body.style.overflowY = "auto";
+      document.documentElement.style.overflowY = "auto";
+
+      window.removeEventListener("wheel", preventScroll);
+
+      window.removeEventListener("touchmove", preventScroll);
+
+    }
+
     // PAGE 1
 
     const page1Played = sessionStorage.getItem("page1Played");
@@ -394,25 +440,37 @@
     const page1Title =
       "Eu Te Amo Bina ❤️";
 
-    const page1Text = "Você é a melhor parte dos meus dias.\n\nObrigado por cada beijo, cada abraço, cada massagem (às vezes né), e por cada momento desse nosso 1 ano juntos.\n\nEspero que venham mais, porque tudo fica melhor com você ❤️";
+    const page1Text =
+      "Você é a melhor parte dos meus dias.\n\nObrigado por cada beijo, cada abraço, cada massagem (às vezes né), e por cada momento desse nosso 1 ano juntos.\n\nEspero que venham mais, porque tudo fica melhor com você ❤️";
 
     if (!page1Played) {
+      lockScroll();
 
       typeWriter(title1, page1Title, 140, () => {
+
         setTimeout(() => {
+
           typeWriter(text1, page1Text, 55, () => {
+
             scroll1.classList.add("show");
+            unlockScroll();
+
           });
+
         }, 500);
+
       });
 
       sessionStorage.setItem("page1Played", true);
 
     } else {
+
       title1.innerHTML = page1Title;
       text1.innerHTML = page1Text;
 
       scroll1.classList.add("show");
+
+      unlockScroll();
 
     }
 
@@ -434,10 +492,12 @@
 
           if (!played) {
 
+            lockScroll();
+
             typeWriter(
               title2,
-                "Não temos muitas fotos, mas...",
-                130,
+              "Não temos muitas fotos, mas...",
+              130,
               () => {
 
                 cards.forEach((card, index) => {
@@ -447,9 +507,14 @@
                     card.classList.add("show");
 
                     if (index === cards.length - 1) {
+
                       setTimeout(() => {
+
                         scroll2.classList.add("show");
+                        unlockScroll();
+
                       }, 500);
+
                     }
 
                   }, index * 400);
@@ -471,6 +536,8 @@
             });
 
             scroll2.classList.add("show");
+
+            unlockScroll();
 
           }
 
@@ -502,10 +569,12 @@
 
           if (!played) {
 
+            lockScroll();
+
             typeWriter(
               title3,
-                "Bina, você quer...",
-                130,
+              "Bina, você quer...",
+              130,
               () => {
 
                 setTimeout(() => {
@@ -516,12 +585,15 @@
 
                     typeWriter(
                       text3,
-                        "Comprar uma nova aliança comigo?",
-                        70,
+                      "Comprar uma nova aliança comigo?",
+                      70,
                       () => {
 
                         setTimeout(() => {
+
                           buttons.classList.add("show");
+                          unlockScroll();
+
                         }, 500);
 
                       }
@@ -546,6 +618,8 @@
 
             ring.classList.add("show");
             buttons.classList.add("show");
+
+            unlockScroll();
 
           }
 
@@ -575,9 +649,11 @@
     });
 
     modal.addEventListener("click", (e) => {
+
       if (e.target === modal) {
         modal.classList.remove("show");
       }
+
     });
 
     // NO BUTTON MOVE
@@ -591,36 +667,45 @@
 
       noBtn.style.transform =
         `translate(${x}px, ${y}px)`;
+
     }
 
     noBtn.addEventListener("mouseenter", moveButton);
 
     noBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    moveButton();
+
+      e.preventDefault();
+
+      moveButton();
+
     });
 
     noBtn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    moveButton();
+
+      e.preventDefault();
+
+      moveButton();
+
     }, { passive: false });
 
     // SCROLL BUTTONS
 
     document.querySelectorAll(".scroll").forEach(button => {
 
-    button.addEventListener("click", () => {
+      button.addEventListener("click", () => {
+
+        lockScroll();
 
         const nextPage =
-        document.getElementById(
+          document.getElementById(
             button.dataset.next
-        );
+          );
 
         nextPage.scrollIntoView({
-        behavior: "smooth"
+          behavior: "smooth"
         });
 
-    });
+      });
 
     });
 
