@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eu Te Amo Bina ❤️</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #fff0f5, #ffe4ec);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    html,
+    body {
+    scroll-behavior: smooth;
+    }
+
+    section {
+    scroll-snap-align: start;
+    }
+
+    body {
+    scroll-snap-type: y mandatory;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      margin-bottom: 25px;
+      color: #ff2f6d;
+      min-height: 80px;
+    }
+
+    p {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      line-height: 1.8;
+      max-width: 700px;
+      margin: 0 auto;
+      white-space: pre-line;
+    }
+
+    .cursor::after {
+      content: "|";
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* PAGE 2 */
+
+    .photos {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .polaroid {
+      background: white;
+      padding: 15px 15px 50px;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(40px) rotate(-2deg);
+      transition: 1s ease;
+    }
+
+    .polaroid.show {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .caption {
+      margin-top: 15px;
+      font-size: 1rem;
+      color: #555;
+      font-style: italic;
+    }
+
+    /* PAGE 3 */
+
+    .ring {
+      font-size: 6rem;
+      margin: 30px 0;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: 1s ease;
+    }
+
+    .ring.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .buttons {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transition: 1s ease;
+    }
+
+    .buttons.show {
+      opacity: 1;
+    }
+
+    button {
+      border: none;
+      padding: 16px 35px;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+      position: relative;
+    }
+
+    .yes {
+      background: #ff2f6d;
+      color: white;
+    }
+
+    .yes:hover {
+      transform: scale(1.05);
+    }
+
+    .no {
+      background: white;
+      color: #ff2f6d;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.4s ease;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      animation: popup 0.4s ease;
+    }
+
+    .modal-content h2 {
+      color: #ff2f6d;
+      margin-bottom: 20px;
+    }
+
+    .close {
+      margin-top: 25px;
+      background: #ff2f6d;
+      color: white;
+    }
+
+    @keyframes popup {
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* SCROLL INDICATOR */
+
+    .scroll {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: #ff2f6d;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        animation: bounce 1.5s infinite;
+        transition: 0.3s ease;
+        user-select: none;
+    }
+
+    .scroll:hover {
+        transform: translateX(-50%) scale(1.08);
+    }
+
+    @keyframes bounce {
+        0%,100% {
+            transform: translate(-50%, 0);
+        }
+
+        50% {
+            transform: translate(-50%, 10px);
+        }
+    }
+
+    @keyframes upDown {
+      0%,100% {
+        transform: translate(-50%, 0);
+      }
+      50% {
+        transform: translate(-50%, 10px);
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 -->
+  <section id="page1">
+    <div class="container">
+      <h1 id="title1"></h1>
+
+      <p id="text1"></p>
+
+      <div class="scroll" data-next="page2">↓</div>
+    </div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section id="page2">
+    <div class="container">
+      <h1 id="title2"></h1>
+
+      <div class="photos">
+
+        <div class="polaroid">
+          <img src="fotos/foto1.jpeg" alt="">
+          <div class="caption">Você deixa tudo melhor ❤️</div>
+        </div>
+
+        <div class="polaroid">
+          <img
+            src="fotos/foto3.jpeg"
+            alt=""
+            style="object-position: right;"
+          >
+
+          <div class="caption">
+            Cada momento vale a pena ❤️
+          </div>
+        </div>
+
+        <div class="polaroid">
+          <img src="fotos/foto4.jpeg" alt="">
+          <div class="caption">Eu escolheria você sempre ❤️</div>
+        </div>
+
+        <div class="polaroid">
+          <img src="fotos/foto2.jpeg" alt="">
+          <div class="caption">Te amo infinitamente ❤️❤️</div>
+        </div>
+
+      </div>
+
+      <div class="scroll" data-next="page3">↓</div>
+
+    </div>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section id="page3">
+    <div class="container">
+
+      <h1 id="title3"></h1>
+
+      <div class="ring" id="ring">💍</div>
+
+      <p id="text3"></p>
+
+      <div class="buttons" id="buttons">
+        <button class="yes" id="yesBtn">Sim ❤️</button>
+        <button class="no" id="noBtn">Não 😅</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2>Te Amo Meu Amor ❤️</h2>
+
+      <p>
+        Então vamos comprar nossa nova aliança juntos ✨
+      </p>
+
+      <button class="close" id="closeModal">
+        Fechar
+      </button>
+    </div>
+  </div>
+
+  <script>
+
+    // TYPE EFFECT
+
+    function typeWriter(element, text, speed = 50, callback = null) {
+      let i = 0;
+
+      element.classList.add("cursor");
+
+      function typing() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        } else {
+          element.classList.remove("cursor");
+
+          if (callback) callback();
+        }
+      }
+
+      typing();
+    }
+
+    // PAGE 1
+
+    const page1Played = sessionStorage.getItem("page1Played");
+
+    const title1 = document.getElementById("title1");
+    const text1 = document.getElementById("text1");
+
+    const page1Title =
+      "Eu Te Amo Bina ❤️";
+
+    const page1Text = "Você é a melhor parte dos meus dias.\n\nObrigado por cada beijo, cada abraço, cada massagem (às vezes né), e por cada momento desse nosso 1 ano juntos.\n\nEspero que venham mais, porque tudo fica melhor com você ❤️";
+
+    if (!page1Played) {
+
+      typeWriter(title1, page1Title, 140, () => {
+        setTimeout(() => {
+          typeWriter(text1, page1Text, 55);
+        }, 500);
+      });
+
+      sessionStorage.setItem("page1Played", true);
+
+    } else {
+      title1.innerHTML = page1Title;
+      text1.innerHTML = page1Text;
+    }
+
+    // PAGE 2
+
+    const observer2 = new IntersectionObserver((entries) => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+          const played = sessionStorage.getItem("page2Played");
+
+          const title2 = document.getElementById("title2");
+
+          const cards = document.querySelectorAll(".polaroid");
+
+          if (!played) {
+
+            typeWriter(
+              title2,
+                "Não temos muitas fotos, mas...",
+                130,
+              () => {
+
+                cards.forEach((card, index) => {
+                  setTimeout(() => {
+                    card.classList.add("show");
+                  }, index * 400);
+                });
+
+              }
+            );
+
+            sessionStorage.setItem("page2Played", true);
+
+          } else {
+
+            title2.innerHTML =
+              "Não temos muitas fotos, mas...";
+
+            cards.forEach(card => {
+              card.classList.add("show");
+            });
+
+          }
+
+        }
+
+      });
+
+    }, { threshold: 0.5 });
+
+    observer2.observe(document.getElementById("page2"));
+
+    // PAGE 3
+
+    const observer3 = new IntersectionObserver((entries) => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+          const played = sessionStorage.getItem("page3Played");
+
+          const title3 = document.getElementById("title3");
+          const text3 = document.getElementById("text3");
+          const ring = document.getElementById("ring");
+          const buttons = document.getElementById("buttons");
+
+          if (!played) {
+
+            typeWriter(
+              title3,
+                "Bina, você quer...",
+                130,
+              () => {
+
+                setTimeout(() => {
+
+                  ring.classList.add("show");
+
+                  setTimeout(() => {
+
+                    typeWriter(
+                      text3,
+                        "Comprar uma nova aliança comigo?",
+                        70,
+                      () => {
+
+                        setTimeout(() => {
+                          buttons.classList.add("show");
+                        }, 500);
+
+                      }
+                    );
+
+                  }, 1000);
+
+                }, 500);
+
+              }
+            );
+
+            sessionStorage.setItem("page3Played", true);
+
+          } else {
+
+            title3.innerHTML =
+              "Bina, você quer...";
+
+            text3.innerHTML =
+              "Comprar uma nova aliança comigo?";
+
+            ring.classList.add("show");
+            buttons.classList.add("show");
+
+          }
+
+        }
+
+      });
+
+    }, { threshold: 0.5 });
+
+    observer3.observe(document.getElementById("page3"));
+
+    // MODAL
+
+    const modal = document.getElementById("modal");
+    const yesBtn = document.getElementById("yesBtn");
+    const closeModal = document.getElementById("closeModal");
+
+    yesBtn.addEventListener("click", () => {
+      modal.classList.add("show");
+    });
+
+    closeModal.addEventListener("click", () => {
+      modal.classList.remove("show");
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("show");
+      }
+    });
+
+    // NO BUTTON MOVE
+
+    const noBtn = document.getElementById("noBtn");
+
+    function moveButton() {
+
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 120 - 60;
+
+      noBtn.style.transform =
+        `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.addEventListener("mouseenter", moveButton);
+
+    noBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    moveButton();
+    });
+
+    noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveButton();
+    }, { passive: false });
+
+    // SCROLL BUTTONS
+
+    document.querySelectorAll(".scroll").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const nextPage =
+        document.getElementById(
+            button.dataset.next
+        );
+
+        nextPage.scrollIntoView({
+        behavior: "smooth"
+        });
+
+    });
+
+    });
+
+    // SCROLL SNAP
+
+    let isScrolling = false;
+
+    const sections = document.querySelectorAll("section");
+
+    function goToSection(direction) {
+
+    if (isScrolling) return;
+
+    const currentScroll = window.scrollY;
+
+    let currentIndex = 0;
+
+    sections.forEach((section, index) => {
+
+        const top = section.offsetTop;
+
+        if (currentScroll >= top - 100) {
+        currentIndex = index;
+        }
+
+    });
+
+    let targetIndex = currentIndex;
+
+    if (direction === "down") {
+        targetIndex++;
+    } else {
+        targetIndex--;
+    }
+
+    if (
+        targetIndex < 0 ||
+        targetIndex >= sections.length
+    ) {
+        return;
+    }
+
+    isScrolling = true;
+
+    sections[targetIndex].scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+    });
+
+    setTimeout(() => {
+    isScrolling = false;
+    }, 1600);
+
+    }
+
+    // MOUSE SCROLL
+
+    window.addEventListener(
+    "wheel",
+    (e) => {
+
+        if (e.deltaY > 0) {
+        goToSection("down");
+        } else {
+        goToSection("up");
+        }
+
+    },
+    { passive: true }
+    );
+
+    // TOUCH SCROLL
+
+    let touchStartY = 0;
+
+    window.addEventListener(
+    "touchstart",
+    (e) => {
+        touchStartY = e.touches[0].clientY;
+    },
+    { passive: true }
+    );
+
+    window.addEventListener(
+    "touchend",
+    (e) => {
+
+        const touchEndY =
+        e.changedTouches[0].clientY;
+
+        const diff =
+        touchStartY - touchEndY;
+
+        if (Math.abs(diff) < 50) return;
+
+        if (diff > 0) {
+        goToSection("down");
+        } else {
+        goToSection("up");
+        }
+
+    },
+    { passive: true }
+    );
+
+  </script>
+
+</body>
+</html>
