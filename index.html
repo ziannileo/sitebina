@@ -37,7 +37,7 @@
     }
 
     section {
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -455,7 +455,10 @@
 
       });
 
-    }, { threshold: 0.5 });
+    }, {
+      threshold: 0.2,
+      rootMargin: "0px 0px -100px 0px"
+    });
 
     observer2.observe(document.getElementById("page2"));
 
@@ -527,7 +530,10 @@
 
       });
 
-    }, { threshold: 0.5 });
+    }, {
+      threshold: 0.2,
+      rootMargin: "0px 0px -100px 0px"
+    });
 
     observer3.observe(document.getElementById("page3"));
 
