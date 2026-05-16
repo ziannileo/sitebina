@@ -295,7 +295,12 @@
         </div>
 
         <div class="polaroid">
-          <img src="fotos/foto4.jpeg" alt="">
+          <img
+            src="fotos/foto4.jpeg"
+            alt=""
+            style="object-position: center 75%;"
+          >
+
           <div class="caption">Eu escolheria você sempre ❤️</div>
         </div>
 
@@ -588,108 +593,6 @@
     });
 
     });
-
-    // SCROLL SNAP
-
-    let isScrolling = false;
-
-    const sections = document.querySelectorAll("section");
-
-    function goToSection(direction) {
-
-    if (isScrolling) return;
-
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-    let currentIndex = 0;
-
-    sections.forEach((section, index) => {
-
-        const top = section.offsetTop;
-
-        if (currentScroll >= top - 100) {
-        currentIndex = index;
-        }
-
-    });
-
-    let targetIndex = currentIndex;
-
-    if (direction === "down") {
-        targetIndex++;
-    } else {
-        targetIndex--;
-    }
-
-    if (
-        targetIndex < 0 ||
-        targetIndex >= sections.length
-    ) {
-        return;
-    }
-
-    isScrolling = true;
-
-    sections[targetIndex].scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-    });
-
-    setTimeout(() => {
-    isScrolling = false;
-    }, 1600);
-
-    }
-
-    // MOUSE SCROLL
-
-    window.addEventListener(
-    "wheel",
-    (e) => {
-
-        if (e.deltaY > 0) {
-        goToSection("down");
-        } else {
-        goToSection("up");
-        }
-
-    },
-    { passive: true }
-    );
-
-    // TOUCH SCROLL
-
-    let touchStartY = 0;
-
-    window.addEventListener(
-    "touchstart",
-    (e) => {
-        touchStartY = e.touches[0].clientY;
-    },
-    { passive: true }
-    );
-
-    window.addEventListener(
-    "touchend",
-    (e) => {
-
-        const touchEndY =
-        e.changedTouches[0].clientY;
-
-        const diff =
-        touchStartY - touchEndY;
-
-        if (Math.abs(diff) < 50) return;
-
-        if (diff > 0) {
-        goToSection("down");
-        } else {
-        goToSection("up");
-        }
-
-    },
-    { passive: true }
-    );
 
   </script>
 
